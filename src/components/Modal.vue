@@ -2,8 +2,9 @@
   <teleport to="body">
     <transition name="fade">
       <div class="fixed top-0 left-0 w-screen h-screen bg-black/50 flex justify-center items-center" v-show="show">
-        <div ref="modal" class="relative rounded-md bg-gray-500 dark:bg-slate-500 p-12">
-          <button @click="emits('close')" class="absolute top-3 right-3">
+        <div ref="modal"
+          class="relative rounded-md bg-gray-500 dark:bg-slate-500 text-gray-700 dark:text-gray-200 font-retro p-5 ">
+          <button @click="emits('close')" class="absolute top-0 right-0">
             <p class="w-5 h-5">X</p>
           </button>
           <slot />
