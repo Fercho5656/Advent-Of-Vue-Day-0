@@ -1,5 +1,6 @@
 <template>
   <div class="h-full grid grid-rows-6 place-items-center">
+    <canvas ref="container" class="w-screen h-screen top-0 left-0 absolute pointer-events-none"></canvas>
     <modal :show="showPlayAgainModal" @close="showPlayAgainModal = false">
       <div class="flex flex-col justify-center items-center gap-y-3">
         <p>{{ gameStatus }}</p>
@@ -44,6 +45,7 @@ import FButton from './components/FButton.vue'
 import GameCell from './components/GameCell.vue'
 import Modal from './components/Modal.vue'
 import ICell from './interfaces/ICell'
+import confetti from 'canvas-confetti'
 import { ref } from 'vue';
 import { useDark, useToggle } from '@vueuse/core'
 
@@ -51,7 +53,7 @@ const isDark = useDark()
 useToggle(isDark)
 
 const showPlayAgainModal = ref(false)
-
+const container = ref<HTMLCanvasElement>()
 const gameStatus = ref<string>('Player One\'s Turn')
 const isPlayerOneTurn = ref<boolean>(true)
 const isGameFinished = ref<boolean>(false)
@@ -109,6 +111,15 @@ const onCellClick = (cell: ICell) => {
     isGameFinished.value = true
     gameStatus.value = isPlayerOneTurn.value ? "Player Two Wins!" : "Player One Wins!"
     isPlayerOneTurn.value ? playerTwoScore.value++ : playerOneScore.value++
+    const myConfetti = confetti.create(container.value!, {
+      resize: true,
+      useWorker: true,
+    })
+    myConfetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+    })
   }
 }
 </script>
