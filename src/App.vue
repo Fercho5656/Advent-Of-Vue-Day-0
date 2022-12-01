@@ -1,33 +1,37 @@
 <template>
-  <div
-    class=" bg-zinc-100 dark:bg-slate-700 text-gray-700 dark:text-gray-200 h-screen grid grid-cols-12 items-center font-retro font-[400]">
+  <div class="h-full grid grid-rows-6 place-items-center">
     <modal :show="showPlayAgainModal" @close="showPlayAgainModal = false">
-      <f-button @click="restartGame">
-        <p>Play Again?</p>
-      </f-button>
+      <div class="flex flex-col justify-center items-center gap-y-3">
+        <p>{{ gameStatus }}</p>
+        <f-button @click="restartGame">
+          <p>Play Again?</p>
+        </f-button>
+      </div>
     </modal>
-    <header class="col-span-12 p-2">
+    <header class="p-5 justify-self-start row-span-1 w-full">
       <h1 class="text-3xl text-center">Re-Tro-Toe</h1>
     </header>
-    <main class="p-5 col-span-12 flex flex-col gap-y-12">
-      <p class="text-center">{{ gameStatus }}</p>
-      <div class="flex justify-between">
+    <main class="flex flex-col p-5 gap-y-12 row-span-3 row-start-2">
+      <div class="">
+        <p v-show="!isGameFinished" class="text-center">{{ gameStatus }}</p>
+      </div>
+      <div class="flex gap-x-8 justify-between">
         <div class="col-span-4 flex flex-col text-center">
           <p>Player One</p>
-          <p>{{ playerOneScore }}</p>
+          <p class="text-2xl">{{ playerOneScore }}</p>
         </div>
         <div class="col-span-4 flex flex-col text-center">
           <p>Player Two</p>
-          <p>{{ playerTwoScore }}</p>
+          <p class="text-2xl">{{ playerTwoScore }}</p>
         </div>
       </div>
-      <div class="col-span-12 grid grid-cols-3 grid-rows-3 gap-1">
+      <div class="mx-auto min-w-full max-w-xs grid grid-cols-3 grid-rows-3 gap-1">
         <game-cell v-for="cell in cellValues" :key="cell.id" @click="onCellClick(cell)">
           {{ cell.value }}
         </game-cell>
       </div>
     </main>
-    <footer class="p-3 col-span-12 bg-emerald-400">
+    <footer class="fixed bottom-0 w-full p-3 py-5 bg-emerald-400 text-center">
       <p>Made for <a href="https://adventofvue.com/" rel="noopener noreferrer" target="_blank">Advent of Vue
           2022</a>
       </p>
