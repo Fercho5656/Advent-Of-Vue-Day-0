@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@vueuse/core": "9.6.0",
+    "canvas-confetti": "1.6.0",
     "vue": "3.2.41"
   },
   "devDependencies": {
+    "@types/canvas-confetti": "1.6.0",
     "@vitejs/plugin-vue": "3.2.0",
     "autoprefixer": "10.4.13",
     "postcss": "8.4.19",
